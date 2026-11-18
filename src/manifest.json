@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Lateread",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "description": "Save links and actually read them: a board with Now, Next, Later and Read.",
   "permissions": ["storage", "activeTab", "alarms", "notifications"],
   "icons": {
