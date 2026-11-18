@@ -64,7 +64,6 @@
 .owl-main { fill: var(--accent); stroke: var(--accent); stroke-width: 3; stroke-linejoin: round; }
 .owl-wing { fill: color-mix(in srgb, var(--accent) 68%, #000); stroke: color-mix(in srgb, var(--accent) 68%, #000); stroke-width: 2; stroke-linejoin: round; }
 .owl-belly { fill: color-mix(in srgb, var(--accent) 28%, #fff); }
-.owl-feathers { fill: none; stroke: var(--accent); stroke-width: 1.4; stroke-linecap: round; opacity: .55; }
 .owl-cheek { fill: #ff8fa8; opacity: .55; }
 .owl-feet { fill: var(--c-later); }
 .owl-beak { fill: var(--c-later); stroke: var(--c-later); stroke-width: 1.6; stroke-linejoin: round; }

@@ -8,7 +8,6 @@ const OWL_SVG = `
   <ellipse class="owl-feet" cx="39" cy="60.5" rx="4.5" ry="2.3"/>
   <path class="owl-main" d="M10 24L12 5L25 14Q32 12 39 14L52 5L54 24Q58 32 56 42Q52 60 32 60Q12 60 8 42Q6 32 10 24Z"/>
   <ellipse class="owl-belly" cx="32" cy="47" rx="13" ry="11.5"/>
-  <path class="owl-feathers" d="M26 45q2 2 4 0M34 45q2 2 4 0M30 51q2 2 4 0"/>
   <ellipse class="owl-cheek" cx="14" cy="38.5" rx="3.2" ry="2"/>
   <ellipse class="owl-cheek" cx="50" cy="38.5" rx="3.2" ry="2"/>
   <g class="owl-eyes">

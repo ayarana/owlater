@@ -4,6 +4,8 @@
 
 I save a lot of links "for later" and almost never come back to them. This is a small browser extension that keeps my saved links (articles, videos, whatever) on a board, and nudges me to actually get through them.
 
+![The owlater board, with cards in the Now and Next columns](image.png)
+
 You click the owl on any page, add a quick note if you want, and pick where it goes. Then the board shows everything in four columns:
 
 - **Now**: what you're reading or watching today. Capped at 3, on purpose.
