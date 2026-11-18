@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Owlater",
+  "name": "owlater",
   "version": "1.0.0",
   "description": "Save links and videos, and actually get to them: a board with Now, Next, Later and Read.",
   "permissions": ["storage", "activeTab", "alarms", "notifications"],
@@ -10,7 +10,7 @@
     "128": "icons/icon128.png"
   },
   "action": {
-    "default_title": "Save to Owlater",
+    "default_title": "Save to owlater",
     "default_popup": "popup.html",
     "default_icon": {
       "16": "icons/icon16.png",
