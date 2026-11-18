@@ -3,24 +3,31 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Lateread</title>
+  <title>Owlater</title>
   <link rel="stylesheet" href="theme.css" />
   <link rel="stylesheet" href="board.css" />
 </head>
 <body>
   <header>
-    <h1 data-icon="bookmark">Lateread</h1>
+    <div class="brand">
+      <span class="mascot" data-mascot style="--mascot-size: 52px"></span>
+      <div>
+        <h1>Owlater</h1>
+        <p class="tagline">Links from around the web to read and watch, at your own pace.</p>
+      </div>
+    </div>
     <div class="actions">
       <button id="add-manual" data-icon="plus">Add link</button>
       <button id="advance" data-icon="chevrons-right" title="Moves the oldest cards up to the next column until it's full">Advance queue</button>
-      <button id="export-json" data-icon="download" title="Full backup, can be imported back">Export</button>
-      <button id="import" data-icon="upload">Import</button>
       <button id="toggle-settings" data-icon="sliders-horizontal">Settings</button>
-      <input type="file" id="import-file" accept="application/json" hidden />
     </div>
   </header>
 
-  <section id="settings" hidden>
+  <aside id="settings" aria-label="Settings" aria-hidden="true" inert>
+    <div class="settings-head">
+      <h2>Settings</h2>
+      <button id="close-settings" data-icon="x" aria-label="Close settings" title="Close"></button>
+    </div>
     <div class="set-title">Theme</div>
     <div id="theme-picker" class="theme-picker"></div>
     <hr class="divider" />
@@ -49,11 +56,18 @@
       Commitment mode
     </label>
     <small>Only lets you delete or mark as read cards in the "Now" column.</small>
-  </section>
+    <hr class="divider" />
+    <div class="set-title">Backup</div>
+    <div class="backup-actions">
+      <button id="export-json" data-icon="download" title="Full backup, can be imported back">Export</button>
+      <button id="import" data-icon="upload">Import</button>
+      <input type="file" id="import-file" accept="application/json" hidden />
+    </div>  </aside>
 
   <main id="board"></main>
 
   <div id="toast" role="status"></div>
+  <script src="mascot.js"></script>
   <script src="storage.js"></script>
   <script src="board.js"></script>
 </body>

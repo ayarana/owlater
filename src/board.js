@@ -9,7 +9,12 @@ const ICONS = {
   "sliders-horizontal": '<line x1="21" x2="14" y1="4" y2="4"/><line x1="10" x2="3" y1="4" y2="4"/><line x1="21" x2="12" y1="12" y2="12"/><line x1="8" x2="3" y1="12" y2="12"/><line x1="21" x2="16" y1="20" y2="20"/><line x1="12" x2="3" y1="20" y2="20"/><line x1="14" x2="14" y1="2" y2="6"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="16" x2="16" y1="18" y2="22"/>',
   "file-text": '<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/>',
   check: '<polyline points="20 6 9 17 4 12"/>',
-  "trash-2": '<path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/>',
+  x: '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',
+  coffee:'<path d="M10 2v2"/><path d="M14 2v2"/><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1"/><path d="M6 2v2"/>',
+  "book-open": '<path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/>',
+  moon: '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>',
+  leaf: '<path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>',
+  "trash-2":'<path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/>',
 };
 
 function icon(name) {
@@ -62,6 +67,15 @@ async function persist() {
   render();
 }
 
+const COL_ICON = { now: "coffee", next: "book-open", later: "moon", read: "leaf" };
+
+const EMPTY_MSG = {
+  now: "Pick something and settle in",
+  next: "What's coming up next goes here",
+  later: "Drop links here, no rush",
+  read: "Finished things land here",
+};
+
 function render() {
   const board = $("board");
   board.replaceChildren();
@@ -77,7 +91,9 @@ function render() {
 
     const full = col.limit !== null && items.length >= col.limit;
     const h = document.createElement("h2");
-    h.append(col.name);
+    const badge = icon(COL_ICON[col.id] || "bookmark");
+    badge.classList.add("col-icon");
+    h.append(badge, col.name);
     const count = document.createElement("span");
     count.className = "count" + (full ? " full" : "");
     count.textContent = col.limit !== null ? `${items.length}/${col.limit}` : items.length;
@@ -96,7 +112,7 @@ function render() {
     if (!items.length) {
       const e = document.createElement("div");
       e.className = "empty";
-      e.textContent = "empty";
+      e.textContent = EMPTY_MSG[col.id] || "empty";
       el.append(e);
     }
     for (const c of items) el.append(renderCard(c, col));
@@ -217,8 +233,8 @@ function download(name, text, type) {
 const today = () => new Date().toISOString().slice(0, 10);
 
 $("export-json").addEventListener("click", () => {
-  const data = { app: "lateread", version: 1, exportedAt: new Date().toISOString(), cards };
-  download(`lateread-${today()}.json`, JSON.stringify(data, null, 2), "application/json");
+  const data = { app: "owlater", version: 1, exportedAt: new Date().toISOString(), cards };
+  download(`owlater-${today()}.json`, JSON.stringify(data, null, 2), "application/json");
 });
 
 $("import").addEventListener("click", () => $("import-file").click());
@@ -312,7 +328,15 @@ function fillSettings() {
   }
 }
 
-$("toggle-settings").addEventListener("click", () => { $("settings").hidden = !$("settings").hidden; });
+const settingsOpen = () => $("settings").classList.contains("open");
+function setSettingsOpen(open) {
+  const s = $("settings");
+  s.classList.toggle("open", open);
+  s.inert = !open;
+  s.setAttribute("aria-hidden", String(!open));
+}
+$("toggle-settings").addEventListener("click", () => setSettingsOpen(!settingsOpen()));
+$("close-settings").addEventListener("click", () => setSettingsOpen(false));
 
 async function onSettingsChange() {
   const days = Math.min(365, Math.max(1, parseInt($("s-days").value, 10) || DEFAULT_SETTINGS.expireDays));
@@ -343,7 +367,7 @@ async function onSettingsChange() {
 }
 for (const id of ["s-expire", "s-days", "s-notify", "s-time", "s-strict", "s-advance"]) $(id).addEventListener("change", onSettingsChange);
 
-function closeSettings() { $("settings").hidden = true; }
+function closeSettings() { setSettingsOpen(false); }
 function closeNotes() {
   if (!openNotes.size) return;
   openNotes.clear();
@@ -352,7 +376,7 @@ function closeNotes() {
 document.addEventListener("click", (ev) => {
   const t = ev.target;
   if (!(t instanceof Element) || !t.isConnected) return;
-  if (!$("settings").hidden && !t.closest("#settings, #toggle-settings")) closeSettings();
+  if (settingsOpen() && !t.closest("#settings, #toggle-settings")) closeSettings();
   if (!t.closest("textarea")) closeNotes();
 });
 document.addEventListener("keydown", (ev) => {

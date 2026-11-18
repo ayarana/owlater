@@ -6,7 +6,10 @@ const COLUMNS = [
 ];
 
 const LEGACY_COLUMN_IDS = { agora: "now", proximos: "next", depois: "later", lido: "read", expirado: "later" };
-const LEGACY_THEME_IDS = { ameixa: "plum", noite: "night", crepusculo: "twilight" };
+const LEGACY_THEME_IDS = {
+  ameixa: "plum", noite: "plum", crepusculo: "lagoon",
+  night: "plum", twilight: "lagoon", aurora: "lagoon",
+};
 const normalizeColumn = (id) => LEGACY_COLUMN_IDS[id] || id;
 
 const DEFAULT_SETTINGS = {
@@ -21,10 +24,10 @@ const DEFAULT_SETTINGS = {
 
 const THEMES = [
   { id: "auto", name: "Auto", colors: ["#f6f5fa", "#6d5bd0", "#14151c"] },
-  { id: "plum", name: "Plum", colors: ["#171821", "#a887ce", "#c8688c"] },
-  { id: "night", name: "Violet night", colors: ["#0e1033", "#f58b9b", "#8e66c8"] },
-  { id: "twilight", name: "Twilight", colors: ["#1a2238", "#f4a98a", "#e0516a"] },
-  { id: "aurora", name: "Aurora", colors: ["#2a3460", "#3cc0c9", "#ee6aa5"] },
+  { id: "lagoon", name: "Lagoon", colors: ["#1f3a45", "#feaf76", "#74b3a8"] },
+  { id: "seaside", name: "Seaside", colors: ["#fcf1e4", "#3a7f7c", "#da6d58"] },
+  { id: "plum", name: "Plum", colors: ["#281f37", "#c9a7f0", "#f2a7b8"] },
+  { id: "matcha", name: "Matcha", colors: ["#f4f2e7", "#4f8452", "#d17a5a"] },
 ];
 
 function applyTheme(id) {
